@@ -8,7 +8,7 @@ $("#success").click(function() {
                 "offset": "0",
                 "timeout": "2000"
             };
-            //alert($("#query-input").val())
+            alert($("#query-input").val())
             $.ajax({
                 url: "https://api.projectoxford.ai/academic/v1.0/interpret?" + $.param(params),
                 beforeSend: function(xhrObj){
@@ -20,13 +20,13 @@ $("#success").click(function() {
                 data: "{body}",
             })
             .done(function(data) {
-                //alert("success");
+                alert("success");
                 var evaluateRequest = JSON.parse(data);
                 var params = {
                 // Request parameters
                 "expr": evaluateRequest.interpretations.rules.output.value
                 }
-                //alert($("#query-input").val())
+                alert(evaluateRequest.interpretations);
                 $.ajax({
                     url: "https://api.projectoxford.ai/academic/v1.0/evaluate?" + $.param(params),
                     beforeSend: function(xhrObj){
