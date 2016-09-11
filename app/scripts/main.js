@@ -1,5 +1,5 @@
 $("#success").click(function () {
-    var request = $(function () {
+    var interpretResult = $(function () {
         var params = {
             // Request parameters
             "query": $("#query-input").val(),
@@ -20,8 +20,27 @@ $("#success").click(function () {
             data: "{body}"
         })
             .done(function (data) {
-            //alert("success");
-            return data;
+            alert("success");
+            var evaluateRequest = JSON.parse(data);
+            var params = {
+                // Request parameters
+                "expr": evaluateRequest.interpretations.rules.output.value
+            };
+            alert(evaluateRequest.interpretations);
+            $.ajax({
+                url: "https://api.projectoxford.ai/academic/v1.0/evaluate?" + $.param(params),
+                beforeSend: function (xhrObj) {
+                    // Request headers
+                    xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key", "6958f760d7074d1692f1262fa1052c7d");
+                },
+                type: "GET",
+                // Request body
+                data: "{body}"
+            })
+                .done(function (data) {
+                var evaluateResponse = JSON.parse(data);
+                alert(evaluateResponse.entities);
+            });
         })
             .fail(function () {
             alert("error");
