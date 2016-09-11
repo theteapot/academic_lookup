@@ -1,5 +1,5 @@
 $("#success").click(function () {
-    $(function () {
+    var request = $(function () {
         var params = {
             // Request parameters
             "query": $("#query-input").val(),
@@ -20,9 +20,8 @@ $("#success").click(function () {
             data: "{body}"
         })
             .done(function (data) {
-            alert("success");
-            response = JSON.parse(data);
-            alert(response.query);
+            //alert("success");
+            return data;
         })
             .fail(function () {
             alert("error");
